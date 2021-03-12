@@ -38,7 +38,6 @@ public class History extends AppCompatActivity {
         db.execSQL("DROP TABLE history");
         db.close();
 
-        textView = findViewById(R.id.historyField);
         textView.setText("Последние операции:");
 
         Toast.makeText(History.this, "История успешно очистилась", Toast.LENGTH_SHORT).show();

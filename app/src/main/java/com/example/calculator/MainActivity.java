@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,10 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        action();
-    }
 
-    public void action() {
         first = findViewById(R.id.firstNumber);
         second = findViewById(R.id.secondNumber);
         res = findViewById(R.id.result);
@@ -31,21 +29,27 @@ public class MainActivity extends AppCompatActivity {
         multi = findViewById(R.id.buttonMulti);
         div = findViewById(R.id.buttonDivision);
         his = findViewById(R.id.buttonHistory);
+    }
 
-        plus.setOnClickListener(v -> actionButton("+", first, second));
+    public void plusAction(View view) {
+        actionButton("+", first, second);
+    }
 
-        minus.setOnClickListener(v -> actionButton("-", first, second));
+    public void minusAction(View view) {
+        actionButton("-", first, second);
+    }
 
-        multi.setOnClickListener(v -> actionButton("*", first, second));
+    public void  multiAction(View view) {
+        actionButton("*", first, second);
+    }
 
-        div.setOnClickListener(v -> actionButton("/", first, second));
+    public void divAction(View view) {
+        actionButton("/", first, second);
+    }
 
-        his.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(".History");
-                    startActivity(intent);
-                }
-        );
+    public void hisAction(View view) {
+        Intent intent = new Intent(".History");
+        startActivity(intent);
     }
 
     private void actionButton(String mark, EditText first, EditText second) {
@@ -56,29 +60,23 @@ public class MainActivity extends AppCompatActivity {
         else {
             float firstNum = Float.parseFloat(first.getText().toString());
             float secondNum = Float.parseFloat(second.getText().toString());
-            float result;
+            float result = 0;
             switch (mark) {
                 case "+":
                     result = firstNum + secondNum;
-                    res.setText(String.valueOf(result));
-                    dbAction(firstNum, secondNum, result, mark);
                     break;
                 case "-":
                     result = firstNum - secondNum;
-                    res.setText(String.valueOf(result));
-                    dbAction(firstNum, secondNum, result, mark);
                     break;
                 case "*" :
                     result = firstNum * secondNum;
-                    res.setText(String.valueOf(result));
-                    dbAction(firstNum, secondNum, result, mark);
                     break;
                 case "/":
                     result = firstNum / secondNum;
-                    res.setText(String.valueOf(result));
-                    dbAction(firstNum, secondNum, result, mark);
                     break;
             }
+            res.setText(String.valueOf(result));
+            dbAction(firstNum, secondNum, result, mark);
         }
     }
 
